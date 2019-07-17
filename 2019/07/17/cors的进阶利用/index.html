@@ -88,24 +88,32 @@
 
 
 
-  <meta name="description" content="freedom and open world">
+  <meta name="description" content="简介差不多有半年没写这些总结文章了，从现在开始恢复写。前些日子拜读了Corben Leo的Advanced CORS Exploitation Techniques，收获良多，想着有空复现一下cors漏洞的进阶利用。直入正题。 CORS介绍这里就借OWASP的关于CORS的介绍。  CORS stands for Cross-Origin Resource Sharing. Is an featu">
 <meta name="keywords" content="sec">
-<meta property="og:type" content="website">
-<meta property="og:title" content="zii">
-<meta property="og:url" content="http://www.ghostz.com.cn/index.html">
+<meta property="og:type" content="article">
+<meta property="og:title" content="cors的进阶利用">
+<meta property="og:url" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/index.html">
 <meta property="og:site_name" content="zii">
-<meta property="og:description" content="freedom and open world">
+<meta property="og:description" content="简介差不多有半年没写这些总结文章了，从现在开始恢复写。前些日子拜读了Corben Leo的Advanced CORS Exploitation Techniques，收获良多，想着有空复现一下cors漏洞的进阶利用。直入正题。 CORS介绍这里就借OWASP的关于CORS的介绍。  CORS stands for Cross-Origin Resource Sharing. Is an featu">
 <meta property="og:locale" content="default">
+<meta property="og:image" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/img/cors.jpg">
+<meta property="og:image" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/img/corsproof.jpg">
+<meta property="og:image" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/img/cors2.png">
+<meta property="og:image" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/img/domainparse.jpg">
+<meta property="og:image" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/img/cors3.png">
+<meta property="og:image" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/img/cors4.jpg">
+<meta property="og:updated_time" content="2019-07-17T14:04:08.626Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zii">
-<meta name="twitter:description" content="freedom and open world">
+<meta name="twitter:title" content="cors的进阶利用">
+<meta name="twitter:description" content="简介差不多有半年没写这些总结文章了，从现在开始恢复写。前些日子拜读了Corben Leo的Advanced CORS Exploitation Techniques，收获良多，想着有空复现一下cors漏洞的进阶利用。直入正题。 CORS介绍这里就借OWASP的关于CORS的介绍。  CORS stands for Cross-Origin Resource Sharing. Is an featu">
+<meta name="twitter:image" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/img/cors.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.ghostz.com.cn/">
+  <link rel="canonical" href="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/">
 
 
 
@@ -115,7 +123,7 @@
   };
 </script>
 
-  <title>zii</title>
+  <title>cors的进阶利用 | zii</title>
   
 
 
@@ -163,8 +171,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
@@ -202,7 +209,7 @@
         
         
           
-          <li class="menu-item menu-item-home menu-item-active">
+          <li class="menu-item menu-item-home">
 
     
     
@@ -315,9 +322,9 @@
           
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -349,10 +356,8 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                
-                <a href="/2019/07/17/cors的进阶利用/" class="post-title-link" itemprop="url">cors的进阶利用</a>
+          <h1 class="post-title" itemprop="name headline">cors的进阶利用
+
               
             
           </h1>
@@ -416,9 +421,7 @@
       
 
       
-        
-          
-            <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>差不多有半年没写这些总结文章了，从现在开始恢复写。前些日子拜读了Corben Leo的<span class="exturl" data-url="aHR0cHM6Ly93d3cuY29yYmVuLmlvL2FkdmFuY2VkLWNvcnMtdGVjaG5pcXVlcy8=" title="https://www.corben.io/advanced-cors-techniques/">Advanced CORS Exploitation Techniques<i class="fa fa-external-link"></i></span>，收获良多，想着有空复现一下cors漏洞的进阶利用。直入正题。</p>
+        <h1 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h1><p>差不多有半年没写这些总结文章了，从现在开始恢复写。前些日子拜读了Corben Leo的<span class="exturl" data-url="aHR0cHM6Ly93d3cuY29yYmVuLmlvL2FkdmFuY2VkLWNvcnMtdGVjaG5pcXVlcy8=" title="https://www.corben.io/advanced-cors-techniques/">Advanced CORS Exploitation Techniques<i class="fa fa-external-link"></i></span>，收获良多，想着有空复现一下cors漏洞的进阶利用。直入正题。</p>
 <h1 id="CORS介绍"><a href="#CORS介绍" class="headerlink" title="CORS介绍"></a>CORS介绍</h1><p>这里就借<span class="exturl" data-url="aHR0cHM6Ly93d3cub3dhc3Aub3JnL2luZGV4LnBocC9DT1JTX1JlcXVlc3RQcmVmbGlnaFNjcnV0aW55" title="https://www.owasp.org/index.php/CORS_RequestPreflighScrutiny">OWASP<i class="fa fa-external-link"></i></span>的关于CORS的介绍。</p>
 <blockquote>
 <p><strong>CORS</strong> stands for <strong>C</strong>ross-<strong>O</strong>rigin <strong>R</strong>esource <strong>S</strong>haring.</p>
@@ -534,8 +537,6 @@
 <li>浏览器访问 x1001.cn-_.<your domain\="">/cors-poc，攻击成功。</your></li>
 </ol>
 
-          
-        
       
     </div>
 
@@ -558,12 +559,12 @@
       
 
       
+      
+      
 
       
 
       
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -573,14 +574,20 @@
   </article>
 
 
-    
-  </section>
-
-  
+  </div>
 
 
           </div>
           
+
+  
+    <div class="comments" id="comments">
+      <div id="lv-container" data-id="city" data-uid="MTAyMC80MjE3NS8xODcyMg=="></div>
+    </div>
+
+  
+
+
 
         </div>
         
@@ -601,8 +608,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <div class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <div class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -672,6 +688,23 @@
         </div>
       </div>
 
+      
+      <!--noindex-->
+        <div class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+            
+            
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#简介"><span class="nav-number">1.</span> <span class="nav-text">简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CORS介绍"><span class="nav-number">2.</span> <span class="nav-text">CORS介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#复现环境准备"><span class="nav-number">3.</span> <span class="nav-text">复现环境准备</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#靶机环境配置"><span class="nav-number">4.</span> <span class="nav-text">靶机环境配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#初步利用"><span class="nav-number">5.</span> <span class="nav-text">初步利用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#高阶利用原理"><span class="nav-number">6.</span> <span class="nav-text">高阶利用原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Let’s-Hack"><span class="nav-number">7.</span> <span class="nav-text">Let’s Hack</span></a></li></ol></div>
+            
+
+          </div>
+        </div>
+      <!--/noindex-->
       
 
       
@@ -800,6 +833,10 @@
 
 
   
+  <script src="/js/src/scrollspy.js?v=6.7.0"></script>
+<script src="/js/src/post-details.js?v=6.7.0"></script>
+
+
 
   
 
@@ -810,6 +847,23 @@
 
   
 
+
+  
+    <script>
+  window.livereOptions = {
+    refer: '2019/07/17/cors的进阶利用/'
+  };
+  (function(d, s) {
+    var j, e = d.getElementsByTagName(s)[0];
+    if (typeof LivereTower === 'function') { return; }
+    j = d.createElement(s);
+    j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+    j.async = true;
+    e.parentNode.insertBefore(j, e);
+  })(document, 'script');
+</script>
+
+  
 
 
   
